@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>TurnControl.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+TurnControl.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">componance.ingame</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">componance.ingame.BankerItem.bankerCard</span><span class="s0">;</span>
+<span class="s0">import static </span><span class="s1">componance.ingame.CardGenerator.*</span><span class="s0">;</span>
+<span class="s0">import static </span><span class="s1">componance.ingame.PlayerItem.playerCard</span><span class="s0">;</span>
+<span class="s0">import static </span><span class="s1">componance.ingame.encryption.CardEncryption.deckFaceToEncryption</span><span class="s0">;</span>
+<span class="s0">import static </span><span class="s1">componance.ingame.encryption.CardEncryption.deckFaceToEncryptionValue</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">TurnControl {</span>
+    <span class="s0">private static int </span><span class="s1">player_score</span><span class="s0">;</span>
+    <span class="s0">private static int </span><span class="s1">banker_score</span><span class="s0">;</span>
+    <span class="s0">public static void </span><span class="s1">inGame(){</span>
+        <span class="s1">System.out.println(</span><span class="s2">&quot;Turn Start E&gt; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">drawPlayerCard()</span><span class="s0">;</span>
+        <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">drawPlayerCard()</span><span class="s0">;</span>
+        <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">checkTheThirdDrawOfPlayer()</span><span class="s0">;</span>
+        <span class="s1">checkTheThirdDrawOfBanker()</span><span class="s0">;</span>
+        <span class="s1">showScore()</span><span class="s0">;</span>
+        <span class="s1">whoWin()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">static int </span><span class="s1">countPlayerCard = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">public static void </span><span class="s1">drawPlayerCard(){</span>
+        <span class="s0">int </span><span class="s1">card =  deckFaceToEncryptionValue(deck[playerCard[countPlayerCard]].face())</span><span class="s0">;</span>
+        <span class="s1">deckFaceToEncryption(deck[playerCard[countPlayerCard]].face())</span><span class="s0">;</span>
+        <span class="s1">player_score += card</span><span class="s0">;</span>
+        <span class="s1">player_score %= </span><span class="s3">10</span><span class="s0">;</span>
+        <span class="s1">countPlayerCard++</span><span class="s0">;</span>
+        <span class="s1">showScore()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+    <span class="s0">static int </span><span class="s1">countBankerCard = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s0">public static void </span><span class="s1">drawBankerCard(){</span>
+        <span class="s0">int </span><span class="s1">card =  deckFaceToEncryptionValue(deck[bankerCard[countBankerCard]].face())</span><span class="s0">;</span>
+        <span class="s1">deckFaceToEncryption(deck[bankerCard[countBankerCard]].face())</span><span class="s0">;</span>
+        <span class="s1">banker_score += card</span><span class="s0">;</span>
+        <span class="s1">banker_score %= </span><span class="s3">10</span><span class="s0">;</span>
+        <span class="s1">countBankerCard++</span><span class="s0">;</span>
+        <span class="s1">showScore()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">showScore(){</span>
+        <span class="s1">System.out.println(</span><span class="s2">&quot;P[&quot;</span><span class="s1">+player_score+</span><span class="s2">&quot;] B[&quot;</span><span class="s1">+banker_score+</span><span class="s2">&quot;]&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">spacialMessage(player_score</span><span class="s0">,</span><span class="s2">&quot;PLAYER&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">spacialMessage(banker_score</span><span class="s0">,</span><span class="s2">&quot;BANKER&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">checkTheThirdDrawOfPlayer(){</span>
+        <span class="s0">if </span><span class="s1">(player_score &gt;= </span><span class="s3">0 </span><span class="s1">&amp;&amp; player_score &lt;= </span><span class="s3">5</span><span class="s1">) {</span>
+            <span class="s1">drawPlayerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(banker_score &gt;= </span><span class="s3">8 </span><span class="s1">&amp;&amp; banker_score &lt;= </span><span class="s3">9</span><span class="s1">){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;PLAYER: OHH NO!!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Player stand.&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">checkTheThirdDrawOfBanker(){</span>
+        <span class="s0">int </span><span class="s1">theThirdPlayerCard = deck[playerCard[</span><span class="s3">2</span><span class="s1">]].face()</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(banker_score &lt;= </span><span class="s3">2 </span><span class="s1">&amp;&amp; player_score &lt;= </span><span class="s3">7</span><span class="s1">) {</span>
+            <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(banker_score == </span><span class="s3">3 </span><span class="s1">&amp;&amp; theThirdPlayerCard != </span><span class="s3">8</span><span class="s1">) {</span>
+            <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(banker_score == </span><span class="s3">4 </span><span class="s1">&amp;&amp; theThirdPlayerCard &lt;= </span><span class="s3">7 </span><span class="s1">&amp;&amp; theThirdPlayerCard &gt;= </span><span class="s3">2</span><span class="s1">) {</span>
+            <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(banker_score == </span><span class="s3">5 </span><span class="s1">&amp;&amp; theThirdPlayerCard &lt;= </span><span class="s3">7 </span><span class="s1">&amp;&amp; theThirdPlayerCard &gt;= </span><span class="s3">4</span><span class="s1">) {</span>
+            <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if </span><span class="s1">(banker_score == </span><span class="s3">6 </span><span class="s1">&amp;&amp; theThirdPlayerCard &lt;= </span><span class="s3">7 </span><span class="s1">&amp;&amp; theThirdPlayerCard &gt;= </span><span class="s3">6</span><span class="s1">) {</span>
+            <span class="s1">drawBankerCard()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if</span><span class="s1">(banker_score &gt;= </span><span class="s3">8 </span><span class="s1">&amp;&amp; banker_score &lt;= </span><span class="s3">9</span><span class="s1">){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;IT'S LUCKY, GOOD TURN&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Banker stand&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">whoWin(){</span>
+        <span class="s0">if</span><span class="s1">(banker_score &lt; player_score){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;PLAYER WIN!!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if</span><span class="s1">(banker_score &gt; player_score){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;BANKER WIN!!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;AMAZING!!, IT'S TIE&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">spacialMessage(</span><span class="s0">int </span><span class="s1">score</span><span class="s0">, </span><span class="s1">String who){</span>
+        <span class="s0">if</span><span class="s1">(score == </span><span class="s3">8</span><span class="s1">){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;WOW!,&quot;</span><span class="s1">+who+</span><span class="s2">&quot; POK 8&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if</span><span class="s1">(score == </span><span class="s3">9</span><span class="s1">){</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;WOW!,&quot;</span><span class="s1">+who+</span><span class="s2">&quot; POK 9&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public static void </span><span class="s1">scoreReset(){</span>
+        <span class="s1">player_score = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">banker_score = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">countPlayerCard = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s1">countBankerCard = </span><span class="s3">0</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
