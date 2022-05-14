@@ -1,5 +1,3 @@
-package componance;
-
 import java.util.Scanner;
 
 import static componance.GameDocument.gameDocument;

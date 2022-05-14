@@ -3,8 +3,7 @@ package componance.ingame;
 import static componance.ingame.BankerItem.bankerCard;
 import static componance.ingame.CardGenerator.*;
 import static componance.ingame.PlayerItem.playerCard;
-import static componance.ingame.encryption.CardEncryption.deckFaceToEncryption;
-import static componance.ingame.encryption.CardEncryption.deckFaceToEncryptionValue;
+import static componance.ingame.encryption.CardEncryption.*;
 
 public class TurnControl {
     private static int player_score;
@@ -17,14 +16,13 @@ public class TurnControl {
         drawBankerCard();
         checkTheThirdDrawOfPlayer();
         checkTheThirdDrawOfBanker();
-        showScore();
         whoWin();
     }
 
     static int countPlayerCard = 0;
     public static void drawPlayerCard(){
         int card =  deckFaceToEncryptionValue(deck[playerCard[countPlayerCard]].face());
-        deckFaceToEncryption(deck[playerCard[countPlayerCard]].face());
+        deckToEncryption("P",deck[playerCard[countPlayerCard]].face(),deck[playerCard[countPlayerCard]].slut());
         player_score += card;
         player_score %= 10;
         countPlayerCard++;
@@ -36,7 +34,7 @@ public class TurnControl {
     static int countBankerCard = 0;
     public static void drawBankerCard(){
         int card =  deckFaceToEncryptionValue(deck[bankerCard[countBankerCard]].face());
-        deckFaceToEncryption(deck[bankerCard[countBankerCard]].face());
+        deckToEncryption("B",deck[bankerCard[countBankerCard]].face(),deck[bankerCard[countBankerCard]].slut());
         banker_score += card;
         banker_score %= 10;
         countBankerCard++;
@@ -79,6 +77,8 @@ public class TurnControl {
     }
 
     public static void whoWin(){
+        System.out.println("----------------------------");
+        showScore();
         if(banker_score < player_score){
             System.out.println("PLAYER WIN!!");
         } else if(banker_score > player_score){
@@ -86,6 +86,7 @@ public class TurnControl {
         } else {
             System.out.println("AMAZING!!, IT'S TIE");
         }
+        System.out.println("----------------------------");
     }
 
     public static void spacialMessage(int score, String who){

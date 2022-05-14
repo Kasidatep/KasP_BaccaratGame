@@ -1,8 +1,9 @@
 package componance.ingame;
 
-import static componance.ingame.CardGenerator.*;
+import static componance.ingame.CardGenerator.createCard;
+import static componance.ingame.CardGenerator.cardRandom;
 import static componance.ingame.DeleteGameItem.deleteItemGame;
-import static componance.ingame.GameCard.baccaratGame;
+import static componance.ingame.GameCard.listGameItem;
 import static componance.ingame.TurnControl.*;
 
 public class GameControl {
@@ -11,11 +12,7 @@ public class GameControl {
         deleteItemGame();
         createCard();
         cardRandom();
-        baccaratGame();
-        for (int i = 0 ; i < 6 ; i++){
-            int j = cardList[i];
-            System.out.println(deck[j]);
-        }
+        listGameItem();
         inGame();
     }
 

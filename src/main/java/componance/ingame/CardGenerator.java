@@ -16,7 +16,6 @@ public class CardGenerator {
                 deck[count++] = new Card(count,face,slut);
             }
         }
-        System.out.println("Card create successfully.");
     }
 
     protected record Card(int count, int face, int slut) {
@@ -27,16 +26,9 @@ public class CardGenerator {
         for (int i = 0; i <51; i ++) {
             numbers.add (i + 1);
         } Collections.shuffle (numbers);
-        System.out.print ("CARD-LIST : ");
         for (int j = 0; j < 6; j ++) {
             cardList[j] = numbers.get(j);
         }
-
-        for (int j : cardList) {
-            System.out.print(j);
-            System.out.print("/");
-        }
-        System.out.println("Card random successfully.");
     }
 
     public static void cardReset(){

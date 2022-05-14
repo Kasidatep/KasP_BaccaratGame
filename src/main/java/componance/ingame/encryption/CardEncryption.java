@@ -1,6 +1,9 @@
 package componance.ingame.encryption;
 
 import componance.ingame.face;
+import componance.ingame.slut;
+
+import static componance.ingame.GameControl.play;
 
 public class CardEncryption {
     public static String deckFaceToEncryptionMessage(int onDeck){
@@ -40,12 +43,37 @@ public class CardEncryption {
             case 10 -> f = face.k.getScore();
             case 11 -> f = face.l.getScore();
             case 12 -> f = face.m.getScore();
-            default -> f = -1;
+            default -> {
+                f = 0;
+                play();
+            }
         }
         return f;
     }
-    public static void deckFaceToEncryption(int onDeck){
-        System.out.println("DISPLAY CARD : " + deckFaceToEncryptionMessage(onDeck) + " : " + deckFaceToEncryptionValue(onDeck));
+
+    public static slut deckSlutToEncryption(int onDeckSlut){
+        slut f;
+        switch(onDeckSlut){
+            case 0 -> f = (slut.club);
+            case 1 -> f = slut.diamond;
+            case 2 -> f = slut.heart;
+            case 3 -> f = slut.spade;
+            default -> f = null;
+        }
+        return f;
+    }
+
+    public static void deckToEncryption(String who,int face, int slut){
+        String whoTurn;
+        if(who.equals("P")){
+            whoTurn = "Player";
+        } else if (who.equals("B")){
+            whoTurn = "Banker";
+        }else{
+            whoTurn = "TURN ERROR";
+        }
+
+        System.out.println(whoTurn +"Card["+deckFaceToEncryptionMessage(face)+","+deckSlutToEncryption(slut)+"]("+deckFaceToEncryptionValue(face)+")");
 
     }
 }
