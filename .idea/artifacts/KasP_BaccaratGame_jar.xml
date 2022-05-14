@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="KasP_BaccaratGame:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KasP_BaccaratGame_jar</output-path>
+    <root id="archive" name="KasP_BaccaratGame.jar">
+      <element id="module-output" name="KasP_BaccaratGame" />
+    </root>
+  </artifact>
+</component>
