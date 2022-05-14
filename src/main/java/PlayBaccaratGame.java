@@ -13,9 +13,9 @@ public class PlayBaccaratGame {
             System.out.println("\n Type to selected function");
             System.out.println(
                     """
-                            \t > /'s'/' to start game\s
-                            \t > /'r'/' to random card again\s
-                            \t > /'d'/' to read document\s
+                            \t > [s] to start game\s
+                            \t > [r] to random card again\s
+                            \t > [d] to read document\s
                             """);
             System.out.print("[PLAY]>> ");
             gameFunction = scan.next();

@@ -96,6 +96,15 @@ public class TurnControl {
             System.out.println("WOW!,"+who+" POK 9");
         }
     }
+
+    public static int getPlayer_score() {
+        return player_score;
+    }
+
+    public static int getBanker_score() {
+        return banker_score;
+    }
+
     public static void scoreReset(){
         player_score = 0;
         banker_score = 0;
